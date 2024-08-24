@@ -1,10 +1,19 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Slider from "react-slick";
+import Loader from "../Loader/Loader";
+import { useQuery } from "@tanstack/react-query";
 
 export default function CategorySlider() {
-  const [category, setCategory] = useState([]);
-  const [error, setError] = useState(null);
+  function fetchCategories() {
+    return axios.get("https://ecommerce.routemisr.com/api/v1/categories");
+  }
+
+  const { data, error, isLoading } = useQuery({
+    queryKey: ["categories"],
+    queryFn: fetchCategories,
+    select: (data) => data.data.data,
+  });
 
   const settings = {
     dots: false,
@@ -14,24 +23,9 @@ export default function CategorySlider() {
     slidesToScroll: 2,
   };
 
-  async function getCategory() {
-    try {
-      const { data } = await axios.get(
-        "https://ecommerce.routemisr.com/api/v1/categories"
-      );
-      setCategory(data.data);
-      setError(null);
-    } catch (error) {
-      console.log(error);
-      setError(error.response?.data?.message || "Something went wrong");
-      setCategory([]); 
-    }
-  }
+  if (isLoading) return <Loader />;
 
-  useEffect(() => {
-    getCategory();
-  }, []);
-
+  if (error) return <p>Error loading categories: {error.message}</p>;
   return (
     <>
       <section className="py-10">
@@ -41,7 +35,7 @@ export default function CategorySlider() {
             <p className="text-red-500 mt-4">{error}</p>
           ) : (
             <Slider {...settings} className="px-5">
-              {category.map((category, index) => (
+              {data.map((category, index) => (
                 <div key={category.id || index} className="w-1/6">
                   <img
                     className="mb-2 h-250 p-3 object-cover w-full"

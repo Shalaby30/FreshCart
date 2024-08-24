@@ -3,14 +3,15 @@ import axios from "axios";
 import { useParams } from "react-router-dom";
 import Related from "../Related/Related";
 import Slider from "react-slick";
-import { CartContext } from './../../Context/CartContext';
+import { CartContext } from "./../../Context/CartContext";
+import Loader from "../Loader/Loader";
+import { useQuery } from "@tanstack/react-query";
 
 export default function ProductDetails() {
-  const [product, setProductDetail] = useState({});
-  const [error, setError] = useState(null);
+
   const { id } = useParams();
   const { addtoCart } = useContext(CartContext);
-  
+
   const settings = {
     dots: true,
     infinite: true,
@@ -19,23 +20,18 @@ export default function ProductDetails() {
     slidesToScroll: 1,
   };
 
-  async function GetProductDetail(id) {
-    try {
-      const { data } = await axios.get(
-        `https://ecommerce.routemisr.com/api/v1/products/${id}`
-      );
-      setProductDetail(data.data);
-      setError(null);
-    } catch (error) {
-      console.log(error);
-      setError(error.response?.data?.message || "An error occurred");
-      setProductDetail({});
-    }
+  function fetchProductDetail() {
+    return axios.get(`https://ecommerce.routemisr.com/api/v1/products/${id}`);
   }
+  const { data, error, isLoading } = useQuery({
+    queryKey: ["productDetail"],
+    queryFn: fetchProductDetail,
+    select: (data) => data.data.data,
+  });
 
-  useEffect(() => {
-    GetProductDetail(id);
-  }, [id]);
+  if (isLoading) return <Loader />;
+
+  if (error) return <p>Error loading product: {error.message}</p>;
 
   async function addProductCart(productId) {
     await addtoCart(productId);
@@ -51,32 +47,32 @@ export default function ProductDetails() {
             <div className="row">
               <div className="w-1/3">
                 <Slider {...settings} className="px-5">
-                  {product.images?.map((src, index) => (
+                  {data.images?.map((src, index) => (
                     <img
                       key={index}
                       src={src}
-                      alt={product.title}
+                      alt={data.title}
                       className="w-full"
                     />
                   ))}
                 </Slider>
               </div>
               <div className="w-2/3">
-                <h1 className="text-2xl font-bold mb-4">{product.title}</h1>
-                <p className="mb-4">{product.description}</p>
+                <h1 className="text-2xl font-bold mb-4">{data.title}</h1>
+                <p className="mb-4">{data.description}</p>
                 <div className="flex justify-between text-gray-500 font-light">
                   <div>
-                    <p className="mr-2">{product.category?.name}</p>
-                    <span>{product.price} EGP</span>
+                    <p className="mr-2">{data.category?.name}</p>
+                    <span>{data.price} EGP</span>
                   </div>
                   <div className="mt-auto">
                     <i className="fas fa-star text-yellow-300"></i>
-                    <span>{product.ratingsAverage}</span>
+                    <span>{data.ratingsAverage}</span>
                   </div>
                 </div>
 
                 <button
-                  onClick={() => addProductCart(product.id)}
+                  onClick={() => addProductCart(data.id)}
                   className="bg-green-500 w-full mt-2 text-white py-2 px-4 rounded-lg hover:bg-green-600 transition duration-300"
                 >
                   Add to Cart
@@ -87,6 +83,7 @@ export default function ProductDetails() {
         </div>
       </section>
 
+      <Related />
     </>
   );
 }
