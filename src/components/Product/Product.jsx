@@ -22,7 +22,7 @@ export default function Product({ product }) {
   };
 
   return (
-    <div className="product p-2 border">
+    <div className="product p-2 border rounded">
       <div>
         <Link to={`/ProductDetails/${product._id}/${product.category.name}`}>
           <img

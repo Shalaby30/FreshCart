@@ -38,7 +38,6 @@ export default function WishlistContextProvider({ children }) {
       return data;
     } catch (error) {
       console.log(error);
-      toast.error(error.response?.data?.message || "Failed to fetch wishlist");
     }
   }
 

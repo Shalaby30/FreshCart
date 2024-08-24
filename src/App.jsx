@@ -21,6 +21,8 @@ const CartLazy = lazy(() => import("./components/Cart/Cart"));
 const ProductDetailsLazy = lazy(() =>
   import("./components/ProductDetails/ProductDetails")
 );
+const ForgetPasswordLazy = lazy(() =>
+  import("./components/ForgetPassword/ForgetPassword"));
 const CheckOutLazy = lazy(() => import("./components/CheckOut/CheckOut"));
 const AllOrdersLazy = lazy(() => import("./components/Allorders/AllOrders"));
 const CategoriesLazy = lazy(() => import("./components/Categories/Categories"));
@@ -28,7 +30,8 @@ const BrandsLazy = lazy(() => import("./components/Brands/Brands"));
 const WishListLazy = lazy(() => import("./components/WishList/WishList"));
 import Guard from "./components/Guard/Guard";
 import Notfound from "./components/NotFound/Notfound";
-
+const Reset = lazy(() => import("./components/Reset/Reset"));
+const ResetPassword = lazy(() => import("./components/ResetPassword/ResetPassword"));
 const queryClient = new QueryClient();
 
 function App() {
@@ -54,6 +57,30 @@ function App() {
           element: (
             <Suspense fallback={<Loader />}>
               <RegisterLazy />
+            </Suspense>
+          ),
+        },
+        {
+          path: "/ForgotPassword",
+          element: (
+            <Suspense fallback={<Loader />}>
+              <ForgetPasswordLazy />
+            </Suspense>
+          ),
+        },
+        {
+          path: "/Reset",
+          element: (
+            <Suspense fallback={<Loader />}>
+              <Reset />
+            </Suspense>
+          ),
+        },
+        {
+          path: "/ResetPassword",
+          element: (
+            <Suspense fallback={<Loader />}>
+              <ResetPassword />
             </Suspense>
           ),
         },
