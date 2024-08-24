@@ -20,6 +20,7 @@ export default function WishlistContextProvider({ children }) {
       const { data } = await axios.post(endpoint, { productId }, { headers });
       setWishNum(data.count);
       setWishlistDetails(data.data);
+
       toast.success("Item added to wishlist!");
       return data;
     } catch (error) {
@@ -35,6 +36,7 @@ export default function WishlistContextProvider({ children }) {
       const { data } = await axios.get(endpoint, { headers });
       setWishNum(data.count);
       setWishlistDetails(data.data);
+
       return data;
     } catch (error) {
       console.log(error);

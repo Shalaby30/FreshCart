@@ -18,6 +18,10 @@ import Categories from "./components/Categories/Categories";
 import Brands from "./components/Brands/Brands";
 import WishListContextProvider from "./Context/WishlistContext";
 import WishList from "./components/WishList/WishList";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+
+const queryClient = new QueryClient();
 
 function App() {
   const router = createBrowserRouter([
@@ -45,6 +49,7 @@ function App() {
           path: "/Login",
           element: <Login />,
         },
+
         {
           path: "/ProductDetails/:id/:category",
           element: <ProductDetails />,
@@ -89,7 +94,10 @@ function App() {
       <AuthContextProvider>
         <WishListContextProvider>
           <CartContextProvider>
-            <RouterProvider router={router} />
+            <QueryClientProvider client={queryClient}>
+              <RouterProvider router={router} />
+              <ReactQueryDevtools />
+            </QueryClientProvider>
             <ToastContainer />
           </CartContextProvider>
         </WishListContextProvider>
