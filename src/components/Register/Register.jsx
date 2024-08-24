@@ -3,6 +3,8 @@ import { useFormik } from "formik";
 import axios from "axios";
 import * as Yup from "yup";
 import { useNavigate, Link } from "react-router-dom";
+import {Helmet} from "react-helmet";
+
 
 export default function Register() {
   const initialValues = {
@@ -215,6 +217,9 @@ export default function Register() {
           </Link>
         </p>
       </form>
+      <Helmet>
+        <title>Register</title>
+      </Helmet>
     </>
   );
 }

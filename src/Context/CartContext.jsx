@@ -1,9 +1,7 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
-import { AuthContext } from "./../Context/Auth";
+import { AuthContext } from "./Auth";
 import axios from "axios";
 import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import { data } from "autoprefixer";
 
 export const CartContext = createContext();
 

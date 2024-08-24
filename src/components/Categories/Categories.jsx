@@ -2,6 +2,8 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import Loader from "../Loader/Loader";
 import { useQuery } from "@tanstack/react-query";
+import {Helmet} from "react-helmet";
+
 
 export default function Categories() {
   function Categories() {
@@ -33,6 +35,10 @@ export default function Categories() {
           </div>
         ))}
       </div>
+      <Helmet>
+        <title> Categories</title>
+        <meta name="description" content="Discover our wide range of fresh, organic products" />
+      </Helmet>
     </section>
   );
 }

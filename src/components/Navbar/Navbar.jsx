@@ -28,16 +28,19 @@ export default function Navbar() {
                 <li><NavLink to="/products" className="mx-1 p-1">Products</NavLink></li>
                 <li><NavLink to="/categories" className="mx-1 p-1">Categories</NavLink></li>
                 <li><NavLink to="/brands" className="mx-1 p-1">Brands</NavLink></li>
-                <li>
-                  <NavLink to="/wishlist" className="mx-1 p-1">
-                  WishList <span className=" inline-flex items-center justify-center w-6 h-6 text-xs font-bold text-white bg-red-500 border-2 border-white rounded-full -top-2 -end-2 dark:border-gray-900">{wishNum}</span>
-                  </NavLink>
-                </li>
+                
                 <li><NavLink to="/cart" className="mx-1 p-1">
                   <button type="button" className="relative inline-flex items-center p-3 text-sm">
                     <i className="fas fa-shopping-cart"></i>
                     <span className="sr-only">Notifications</span>
                     <div className="absolute inline-flex items-center justify-center w-6 h-6 text-xs font-bold text-white bg-red-500 border-2 border-white rounded-full -top-2 -end-2 dark:border-gray-900">{cartNum}</div>
+                  </button>
+                </NavLink></li>
+                <li><NavLink to="/wishlist" className="mx-1 p-1">
+                  <button type="button" className="relative inline-flex items-center p-3 text-sm">
+                    <i className="fas fas fa-heart"></i>
+                    <span className="sr-only">Notifications</span>
+                    <div className="absolute inline-flex items-center justify-center w-6 h-6 text-xs font-bold text-white bg-red-500 border-2 border-white rounded-full -top-2 -end-2 dark:border-gray-900">{wishNum}</div>
                   </button>
                 </NavLink></li>
               </ul>

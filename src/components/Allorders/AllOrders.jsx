@@ -1,6 +1,7 @@
-import axios from 'axios';
-import React, { useContext, useEffect, useState } from 'react';
-import { CartContext } from './../../Context/CartContext';
+import axios from "axios";
+import React, { useContext, useEffect, useState } from "react";
+import { CartContext } from "./../../Context/CartContext";
+import { Helmet } from "react-helmet";
 
 export default function AllOrders() {
   const { userId } = useContext(CartContext);
@@ -10,7 +11,9 @@ export default function AllOrders() {
 
   async function getOrders() {
     try {
-      const { data } = await axios.get(`https://ecommerce.routemisr.com/api/v1/orders/user/${userId}`);
+      const { data } = await axios.get(
+        `https://ecommerce.routemisr.com/api/v1/orders/user/${userId}`
+      );
       setOrders(data);
     } catch (error) {
       console.error(error);
@@ -49,11 +52,21 @@ export default function AllOrders() {
           <table className="min-w-full bg-white border border-gray-200">
             <thead>
               <tr>
-                <th className="px-6 py-3 border-b border-gray-200 text-left text-sm font-medium text-gray-500 uppercase tracking-wider">Name</th>
-                <th className="px-6 py-3 border-b border-gray-200 text-left text-sm font-medium text-gray-500 uppercase tracking-wider">Category</th>
-                <th className="px-6 py-3 border-b border-gray-200 text-left text-sm font-medium text-gray-500 uppercase tracking-wider">Price</th>
-                <th className="px-6 py-3 border-b border-gray-200 text-left text-sm font-medium text-gray-500 uppercase tracking-wider">Brand</th>
-                <th className="px-6 py-3 border-b border-gray-200 text-left text-sm font-medium text-gray-500 uppercase tracking-wider">Date</th>
+                <th className="px-6 py-3 border-b border-gray-200 text-left text-sm font-medium text-gray-500 uppercase tracking-wider">
+                  Name
+                </th>
+                <th className="px-6 py-3 border-b border-gray-200 text-left text-sm font-medium text-gray-500 uppercase tracking-wider">
+                  Category
+                </th>
+                <th className="px-6 py-3 border-b border-gray-200 text-left text-sm font-medium text-gray-500 uppercase tracking-wider">
+                  Price
+                </th>
+                <th className="px-6 py-3 border-b border-gray-200 text-left text-sm font-medium text-gray-500 uppercase tracking-wider">
+                  Brand
+                </th>
+                <th className="px-6 py-3 border-b border-gray-200 text-left text-sm font-medium text-gray-500 uppercase tracking-wider">
+                  Date
+                </th>
               </tr>
             </thead>
             <tbody>
@@ -62,23 +75,35 @@ export default function AllOrders() {
                   <tr key={item._id}>
                     <td className="px-6 py-4 whitespace-nowrap">
                       <div className="flex items-center">
-                        <img src={item.product.imageCover} alt={item.product.title} className="w-10 h-10 rounded-full mr-4" />
+                        <img
+                          src={item.product.imageCover}
+                          alt={item.product.title}
+                          className="w-10 h-10 rounded-full mr-4"
+                        />
                         <div>
-                          <div className="text-sm font-medium text-gray-900">{item.product.title}</div>
+                          <div className="text-sm font-medium text-gray-900">
+                            {item.product.title}
+                          </div>
                         </div>
                       </div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="text-sm text-gray-900">{item.product.category.name}</div>
+                      <div className="text-sm text-gray-900">
+                        {item.product.category.name}
+                      </div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
                       <div className="text-sm text-gray-900">${item.price}</div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="text-sm text-gray-900">{item.product.brand.name}</div>
+                      <div className="text-sm text-gray-900">
+                        {item.product.brand.name}
+                      </div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="text-sm text-gray-900">{new Date(order.createdAt).toLocaleDateString()}</div>
+                      <div className="text-sm text-gray-900">
+                        {new Date(order.createdAt).toLocaleDateString()}
+                      </div>
                     </td>
                   </tr>
                 ))
@@ -93,7 +118,11 @@ export default function AllOrders() {
             >
               Prev
             </button>
-            <span className="text-sm text-gray-600">Showing {indexOfFirstOrder + 1} to {Math.min(indexOfLastOrder, orders.length)} of {orders.length} entries</span>
+            <span className="text-sm text-gray-600">
+              Showing {indexOfFirstOrder + 1} to{" "}
+              {Math.min(indexOfLastOrder, orders.length)} of {orders.length}{" "}
+              entries
+            </span>
             <button
               onClick={handleNext}
               disabled={currentPage === Math.ceil(orders.length / itemsPerPage)}
@@ -104,6 +133,10 @@ export default function AllOrders() {
           </div>
         </div>
       )}
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>All orders</title>
+]      </Helmet>
     </div>
   );
 }

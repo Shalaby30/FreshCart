@@ -4,6 +4,8 @@ import { AuthContext } from "../../Context/Auth";
 import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
 import { CartContext } from "./../../Context/CartContext";
+import {Helmet} from "react-helmet";
+
 
 export default function Wishlist() {
   const { addtoCart } = useContext(CartContext);
@@ -95,6 +97,9 @@ export default function Wishlist() {
           <div className="text-center mt-6">Your wishlist is empty.</div>
         )}
       </div>
+      <Helmet>
+        <title>Wishlist</title>
+      </Helmet>
     </section>
   );
 }

@@ -6,6 +6,8 @@ import Slider from "react-slick";
 import { CartContext } from "./../../Context/CartContext";
 import Loader from "../Loader/Loader";
 import { useQuery } from "@tanstack/react-query";
+import {Helmet} from "react-helmet";
+
 
 export default function ProductDetails() {
 
@@ -82,6 +84,10 @@ export default function ProductDetails() {
           )}
         </div>
       </section>
+
+      <Helmet>
+        <title>{data.title}</title>
+      </Helmet>
 
       <Related />
     </>

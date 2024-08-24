@@ -2,6 +2,8 @@ import axios from "axios";
 import React from "react";
 import Loader from "../Loader/Loader";
 import { useQuery } from "@tanstack/react-query";
+import {Helmet} from "react-helmet";
+
 
 export default function Brands() {
   function fetchBrands() {
@@ -31,6 +33,10 @@ export default function Brands() {
           </div>
         ))}
       </div>
+
+      <Helmet>
+        <title>Brands</title>
+      </Helmet>
     </div>
   );
 }

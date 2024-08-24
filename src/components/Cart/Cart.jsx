@@ -4,6 +4,8 @@ import { AuthContext } from "../../Context/Auth";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Link } from "react-router-dom";
+import {Helmet} from "react-helmet";
+
 
 export default function Cart() {
   const {
@@ -208,6 +210,10 @@ export default function Cart() {
           </>
         )}
       </div>
+      <Helmet>
+      <meta charSet="utf-8" />
+      <title>Cart</title>
+      </Helmet>
     </section>
   );
 }

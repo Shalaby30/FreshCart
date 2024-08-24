@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
-import { AuthContext } from "./Auth";
 import axios from "axios";
+import { AuthContext } from "./Auth";
 import { toast } from "react-toastify";
 
 export const WishlistContext = createContext();
@@ -9,7 +9,7 @@ export default function WishlistContextProvider({ children }) {
   const { access } = useContext(AuthContext);
   const endpoint = `https://ecommerce.routemisr.com/api/v1/wishlist`;
   const [wishNum, setWishNum] = useState(0);
-  const [wishlistDetails, setWishlistDetails] = useState(null);
+  const [wishlistDetails, setWishlistDetails] = useState([]);
 
   const headers = {
     token: access,
@@ -18,9 +18,8 @@ export default function WishlistContextProvider({ children }) {
   async function addToWishlist(productId) {
     try {
       const { data } = await axios.post(endpoint, { productId }, { headers });
-      setWishNum(data.count);
       setWishlistDetails(data.data);
-
+      setWishNum(data.count);
       toast.success("Item added to wishlist!");
       return data;
     } catch (error) {
@@ -34,9 +33,8 @@ export default function WishlistContextProvider({ children }) {
   async function getWishlist() {
     try {
       const { data } = await axios.get(endpoint, { headers });
-      setWishNum(data.count);
       setWishlistDetails(data.data);
-
+      setWishNum(data.count);
       return data;
     } catch (error) {
       console.log(error);
@@ -49,8 +47,8 @@ export default function WishlistContextProvider({ children }) {
       const { data } = await axios.delete(`${endpoint}/${productId}`, {
         headers,
       });
-      setWishNum(data.count);
       setWishlistDetails(data.data);
+      setWishNum(data.count);
       toast.success("Item removed from wishlist");
       return data;
     } catch (error) {

@@ -4,6 +4,8 @@ import axios from "axios";
 import * as Yup from "yup";
 import { useNavigate, Link } from "react-router-dom";
 import { AuthContext } from './../../Context/Auth';
+import {Helmet} from "react-helmet";
+
 
 export default function Login() {
   const initialValues = {
@@ -145,6 +147,9 @@ export default function Login() {
           </button>
         </div>
       </form>
+      <Helmet>
+        <title>Login</title>
+      </Helmet>
     </>
   );
 }

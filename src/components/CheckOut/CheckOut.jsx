@@ -3,6 +3,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useNavigate } from "react-router-dom";
 import { CartContext } from "../../Context/CartContext";
+import {Helmet} from "react-helmet";
 
 export default function CheckOut() {
   const { getPayment, CartId } = useContext(CartContext);
@@ -164,6 +165,10 @@ export default function CheckOut() {
             </div>
           </div>
         </div>
+          <Helmet>
+            <title> Check Out</title>
+          </Helmet>
+  
       </div>
     </>
   );
