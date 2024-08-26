@@ -16,6 +16,10 @@ export default function WishlistContextProvider({ children }) {
   };
 
   async function addToWishlist(productId) {
+    if (!access) {
+      toast.error("Please log in to add items to the cart");
+      return;
+    }
     try {
       const { data } = await axios.post(endpoint, { productId }, { headers });
       setWishlistDetails(data.data);

@@ -23,7 +23,7 @@ export default function Navbar() {
   return (
     <>
       <div className="w-full bg-gray-100 fixed z-50 top-0 left-0">
-        <nav className="container mx-auto py-2 flex justify-between items-center">
+        <nav className="container mx-auto py-4 flex justify-between items-center">
           <Link to="/">
             <img src={logo} alt="Logo" />
           </Link>
