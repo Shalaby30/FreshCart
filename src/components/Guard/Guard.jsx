@@ -14,12 +14,7 @@ export default function Guard({ children }) {
             <p class="text-gray-600 mb-6">
               {" "}
               If you don’t have an account,{" "}
-              <a
-                href="/signup"
-                class="text-green-600 font-semibold hover:underline"
-              >
-                sign up here
-              </a>
+             <Link to="/register"></Link>
               .
             </p>
             <Link

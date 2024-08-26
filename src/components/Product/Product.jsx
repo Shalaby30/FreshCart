@@ -22,17 +22,17 @@ export default function Product({ product }) {
   };
 
   return (
-    <div className="product p-2 border rounded">
+    <div className="product   border rounded hover:scale-105 transition-all">
       <div>
         <Link to={`/ProductDetails/${product._id}/${product.category.name}`}>
           <img
             src={product.imageCover}
-            className="w-full rounded-md mb-3"
+            className="w-full  mb-3"
             alt={product.title}
           />
         </Link>
       </div>
-      <div className="flex justify-between">
+      <div className="flex p-3 justify-between">
         <div className="flex flex-col justify-between">
           <Link to={`/ProductDetails/${product._id}/${product.category.name}`}>
             <h3 className="text-lg font-semibold line-clamp-2">

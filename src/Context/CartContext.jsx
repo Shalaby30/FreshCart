@@ -73,6 +73,23 @@ export default function CartContextProvider({ children }) {
     }
   }
 
+  async function ClearCart() {
+    try { 
+      const { data } = await axios.delete(`${endpoint}`, { headers });
+      setCartNum(data.numOfCartItems);  
+      setCartDetails([]);      
+      setCartId(data.data._id); 
+      // setuserId(data.data.cartOwner);
+      console.log(cartDetails);
+      console.log(data);
+      return data;                      
+    } catch (error) {
+      console.log("Error removing item:", error);
+      const errorMessage = error.response?.data?.message;
+      return { status: "error", message: errorMessage };  
+    }
+  }
+
   async function updateCount(productId , count) {
     try { 
       const { data } = await axios.put(`${endpoint}/${productId}`, {count} , { headers });
@@ -112,7 +129,7 @@ export default function CartContextProvider({ children }) {
   }, [access]);
 
   return (
-    <CartContext.Provider value={{ addtoCart, getCart, cartNum, cartDetails , setCartDetails , cartNum , removeFromCart , updateCount , getPayment  , CartId  , userId}}>
+    <CartContext.Provider value={{ addtoCart, getCart, cartNum, cartDetails , ClearCart , setCartDetails , cartNum , removeFromCart , updateCount , getPayment  , CartId  , userId}}>
       {children}
     </CartContext.Provider>
   );

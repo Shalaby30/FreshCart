@@ -12,6 +12,7 @@ import WishListContextProvider from "./Context/WishlistContext";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
+ 
 // Lazy-loaded components
 const LayoutLazy = lazy(() => import("./components/Layout/Layout"));
 const HomeLazy = lazy(() => import("./components/Home/Home"));
@@ -22,22 +23,36 @@ const ProductDetailsLazy = lazy(() =>
   import("./components/ProductDetails/ProductDetails")
 );
 const ForgetPasswordLazy = lazy(() =>
-  import("./components/ForgetPassword/ForgetPassword"));
+  import("./components/ForgetPassword/ForgetPassword")
+);
 const CheckOutLazy = lazy(() => import("./components/CheckOut/CheckOut"));
 const AllOrdersLazy = lazy(() => import("./components/Allorders/AllOrders"));
 const CategoriesLazy = lazy(() => import("./components/Categories/Categories"));
 const BrandsLazy = lazy(() => import("./components/Brands/Brands"));
 const WishListLazy = lazy(() => import("./components/WishList/WishList"));
+const Reset = lazy(() => import("./components/Reset/Reset"));
+const ResetPassword = lazy(() =>
+  import("./components/ResetPassword/ResetPassword")
+);
+const CategoryProductsLazy = lazy(() =>
+  import("./components/CategoryProducts/CategoryProducts")
+);
+const BrandProductsLazy = lazy(() =>
+  import("./components/BrandProducts/BrandProducts")
+);
+
+const SearchProductsLazy = lazy(() => import("./components/SearchProducts/SearchProducts"));
+
 import Guard from "./components/Guard/Guard";
 import Notfound from "./components/NotFound/Notfound";
-const Reset = lazy(() => import("./components/Reset/Reset"));
-const ResetPassword = lazy(() => import("./components/ResetPassword/ResetPassword"));
+import ProductDetails from "./components/ProductDetails/ProductDetails";
+
 const queryClient = new QueryClient();
 
 function App() {
   const router = createBrowserRouter([
     {
-      path: "",
+      path: "/",
       element: (
         <Suspense fallback={<Loader />}>
           <LayoutLazy />
@@ -65,6 +80,30 @@ function App() {
           element: (
             <Suspense fallback={<Loader />}>
               <ForgetPasswordLazy />
+            </Suspense>
+          ),
+        },
+        {
+          path: "/Products",
+          element: (
+            <Suspense fallback={<Loader />}>
+              <SearchProductsLazy />
+            </Suspense>
+          ),
+        },
+        {
+          path: "/categories/:categoryId",
+          element: (
+            <Suspense fallback={<Loader />}>
+              <CategoryProductsLazy />
+            </Suspense>
+          ),
+        },
+        {
+          path: "/brands/:brandId", 
+          element: (
+            <Suspense fallback={<Loader />}>
+              <BrandProductsLazy />
             </Suspense>
           ),
         },
@@ -118,11 +157,8 @@ function App() {
         },
         {
           path: "/ProductDetails/:id/:category",
-          element: (
-            <Suspense fallback={<Loader />}>
-              <ProductDetailsLazy />
-            </Suspense>
-          ),
+          element: ( <ProductDetails />),
+          
         },
         {
           path: "/cart",

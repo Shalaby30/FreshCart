@@ -14,6 +14,7 @@ export default function Cart() {
     setCartDetails,
     cartNum,
     removeFromCart,
+    ClearCart,
     updateCount,
   } = useContext(CartContext);
   const { access } = useContext(AuthContext);
@@ -36,6 +37,20 @@ export default function Cart() {
       setLoading(false);
     }
   }
+
+  // async function handleClearCart() {
+  //   const res = await ClearCart();
+  //   if (res.status === "success") {
+  //     getCartItem([]);
+  //     toast.success("Cart cleared successfully", {
+  //       position: "top-right",
+  //       autoClose: 1500,
+  //       delay: 1500,
+  //     });
+  //   } else {
+  //     toast.error( "Something went wrong");
+  //   }
+  // }
 
   async function deleteProduct(id) {
     const res = await removeFromCart(id);
@@ -69,7 +84,7 @@ export default function Cart() {
     if (access) {
       getCartItem();
     }
-  }, [access]);
+  }, [access , getCartItem]);
 
   return (
     <section className="py-8">
@@ -203,6 +218,7 @@ export default function Cart() {
               <Link to="/" className="px-4 bg-gray-200 hover:bg-gray-300 text-gray-700 py-2  rounded">
                 ← Back to Shopping
               </Link>
+              <button onClick={() => ClearCart()} className="bg-red-600 px-4 hover:bg-red-700 text-white py-2  rounded">Clear Cart</button>
               <Link to={"/checkout"} className="bg-blue-600 px-4 hover:bg-blue-700 text-white py-2  rounded">
                 Checkout
               </Link>

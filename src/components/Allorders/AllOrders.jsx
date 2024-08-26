@@ -15,6 +15,8 @@ export default function AllOrders() {
         `https://ecommerce.routemisr.com/api/v1/orders/user/${userId}`
       );
       setOrders(data);
+      console.log(userId);
+      console.log(data);
     } catch (error) {
       console.error(error);
     }

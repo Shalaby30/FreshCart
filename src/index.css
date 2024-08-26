@@ -6,8 +6,9 @@ body {
     padding-top: 5rem;
 }
 .active {
-    @apply underline  rounded-md 
+    @apply underline font-bold text-green-700;
 }
+
 
 .row {
     @apply flex flex-wrap -mx-4
@@ -39,3 +40,4 @@ body {
 .icon {
     @apply min-[400px]:p-4 rounded-full bg-white border border-gray-300 flex items-center justify-center  shadow-sm shadow-transparent transition-all duration-500 hover:text-green-500 hover:shadow-green-200 hover:border-green-400 hover:bg-green-50
 }
+

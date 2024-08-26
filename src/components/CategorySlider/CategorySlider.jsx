@@ -19,8 +19,9 @@ export default function CategorySlider() {
     dots: false,
     infinite: true,
     speed: 500,
-    slidesToShow: 4,
+    slidesToShow: 5,
     slidesToScroll: 2,
+    autoplay: true,
   };
 
   if (isLoading) return <Loader />;

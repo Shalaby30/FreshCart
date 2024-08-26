@@ -9,12 +9,12 @@ export default function Home() {
   const { getWishlist } = useContext(WishlistContext);
 
   useEffect(() => {
-    getWishlist(); // Fetch wishlist details when the component mounts
+    getWishlist(); 
   }, [getWishlist]);
 
   return (
     <>
-      {/* <Mainslider/> */}
+      <Mainslider/>
       <CategorySlider />
       <RecentProducts />
       <Helmet>
