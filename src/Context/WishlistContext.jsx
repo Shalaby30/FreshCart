@@ -17,7 +17,7 @@ export default function WishlistContextProvider({ children }) {
 
   async function addToWishlist(productId) {
     if (!access) {
-      toast.error("Please log in to add items to the cart");
+      toast.error("Please log in to add items to the wishlist");
       return;
     }
     try {
