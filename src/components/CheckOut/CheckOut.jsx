@@ -35,7 +35,7 @@ export default function CheckOut() {
   async function visaPayment(values) {
     setError(null);
 
-    const url = `https://ecommerce.routemisr.com/api/v1/orders/checkout-session/${CartId}?url=http:https://freshcart-ashy.vercel.app/`;
+const url = `https://ecommerce.routemisr.com/api/v1/orders/checkout-session/${CartId}?url=https://freshcart-ashy.vercel.app/`;
 
     try {
       const res = await getPayment(url, values);
