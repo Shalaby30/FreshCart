@@ -18,7 +18,7 @@ export default function Guard({ children }) {
               .
             </p>
             <Link
-              href="/login"
+              to="/login"
               class="bg-green-500 text-white py-2 px-4 rounded-lg hover:bg-green-600 transition duration-300"
             >
               Log In
