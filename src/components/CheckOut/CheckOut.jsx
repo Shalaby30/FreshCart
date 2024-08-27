@@ -3,17 +3,18 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useNavigate } from "react-router-dom";
 import { CartContext } from "../../Context/CartContext";
-import {Helmet} from "react-helmet";
+import { Helmet } from "react-helmet";
 
 export default function CheckOut() {
   const { getPayment, CartId } = useContext(CartContext);
+  const [error, setError] = useState(null);
+  const navigate = useNavigate();
+
   const initialValues = {
     details: "",
     phone: "",
     city: "",
   };
-  const [error, setError] = useState(null);
-  const navigate = useNavigate();
 
   const validationSchema = Yup.object({
     details: Yup.string().required("Required"),
@@ -35,22 +36,17 @@ export default function CheckOut() {
   async function visaPayment(values) {
     setError(null);
 
-const url = `https://ecommerce.routemisr.com/api/v1/orders/checkout-session/${CartId}?url=https://freshcart-ashy.vercel.app/`;
+    const url = `https://ecommerce.routemisr.com/api/v1/orders/checkout-session/${CartId}?url=https://freshcart-ashy.vercel.app/`;
 
     try {
       const res = await getPayment(url, values);
       if (res.status === "success") {
-        console.log(res);
-        console.log("hi from checkout");
         window.location.href = res.session.url;
-
-        setTimeout(() => {
-          navigate("/orders");
-        }, 2000);
       } else {
         setError(res.message);
       }
     } catch (error) {
+      setError("Something went wrong. Please try again.");
       console.error(error);
     }
   }
@@ -63,16 +59,12 @@ const url = `https://ecommerce.routemisr.com/api/v1/orders/checkout-session/${Ca
     try {
       const res = await getPayment(url, values);
       if (res.status === "success") {
-        console.log(res);
-        console.log("hi from checkout");
-
-        setTimeout(() => {
-          navigate("/allorders");
-        }, 2000);
+        navigate("/allorders");
       } else {
-        setError(data.message);
+        setError(res.message);
       }
     } catch (error) {
+      setError("Something went wrong. Please try again.");
       console.error(error);
     }
   }
@@ -165,10 +157,9 @@ const url = `https://ecommerce.routemisr.com/api/v1/orders/checkout-session/${Ca
             </div>
           </div>
         </div>
-          <Helmet>
-            <title> Check Out</title>
-          </Helmet>
-  
+        <Helmet>
+          <title>Check Out</title>
+        </Helmet>
       </div>
     </>
   );
