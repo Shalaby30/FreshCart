@@ -1,32 +1,33 @@
 import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
-import { CartContext } from "./../../Context/CartContext";
+import { AuthContext } from "./../../Context/Auth";
 import { Helmet } from "react-helmet";
 
 export default function AllOrders() {
-  const { userId } = useContext(CartContext);
+  const { decoded2 } = useContext(AuthContext); // Access decoded2 from AuthContext
   const [orders, setOrders] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 4;
 
   async function getOrders() {
-    try {
-      const { data } = await axios.get(
-        `https://ecommerce.routemisr.com/api/v1/orders/user/${userId}`
-      );
-      setOrders(data);
-      console.log(userId);
-      console.log(data);
-    } catch (error) {
-      console.error(error);
+    if (decoded2) {
+      // Ensure decoded2 is available before making the request
+      try {
+        const { data } = await axios.get(
+          `https://ecommerce.routemisr.com/api/v1/orders/user/${decoded2}`
+        );
+        setOrders(data);
+        console.log(decoded2);
+        console.log(data);
+      } catch (error) {
+        console.error(error);
+      }
     }
   }
 
   useEffect(() => {
-    if (userId) {
-      getOrders();
-    }
-  }, [userId]);
+    getOrders();
+  }, [decoded2]); // Fetch orders whenever decoded2 changes
 
   const handleNext = () => {
     if (currentPage < Math.ceil(orders.length / itemsPerPage)) {
@@ -138,7 +139,7 @@ export default function AllOrders() {
       <Helmet>
         <meta charSet="utf-8" />
         <title>All orders</title>
-]      </Helmet>
+      </Helmet>
     </div>
   );
 }
